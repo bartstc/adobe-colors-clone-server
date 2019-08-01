@@ -1,36 +1,11 @@
 import 'reflect-metadata';
 import 'dotenv/config';
-import * as express from 'express';
-import { ApolloServer, gql } from 'apollo-server-express';
 
-import { redis } from './redis';
 import { createTypeormConnection } from './utils/createTypeormConnection';
-
-// Dummy typeDefs
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
-
-// Dummy resolvers
-const resolvers = {
-  Query: {
-    hello: () => 'Hello world!'
-  }
-};
+import { server } from './server';
+import { app } from './app';
 
 const startServer = async () => {
-  const app = express();
-  const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    context: ({ req }) => ({
-      req,
-      redis
-    })
-  });
-
   const typeormConnection = await createTypeormConnection();
   await typeormConnection.runMigrations();
 

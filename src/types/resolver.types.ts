@@ -1,4 +1,4 @@
-import { Context } from './context.interface';
+import { Context } from './context.types';
 
 export type Resolver = (
   parent: any,
