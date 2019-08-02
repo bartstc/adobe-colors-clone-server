@@ -4,7 +4,8 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
-  JoinColumn
+  JoinColumn,
+  CreateDateColumn
 } from 'typeorm';
 import { User } from './User';
 
@@ -22,11 +23,11 @@ export class Palette extends BaseEntity {
   @Column('int', { default: 0 })
   views: number;
 
-  @Column('text', { array: true })
-  colors: string[];
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt: Date;
 
   @Column('text', { array: true })
-  tags: string[];
+  colors: string[];
 
   @Column('uuid')
   ownerid: string;

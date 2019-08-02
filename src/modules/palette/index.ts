@@ -6,7 +6,6 @@ const typeDefs = gql`
   input CreatePalette {
     name: String!
     colors: [String!]!
-    tags: [String!]
   }
 
   type Palette {
@@ -15,7 +14,6 @@ const typeDefs = gql`
     saves: Int!
     views: Int!
     colors: [String!]!
-    tags: [String!]
     ownerid: ID!
     ownerusername: String!
   }
@@ -23,7 +21,9 @@ const typeDefs = gql`
   extend type Query {
     getPalette(id: ID!): Palette!
     getUserPalettes: [Palette]
-    getAllPalettes: [Palette]
+    getAllPalettes(limit: Int!, offset: Int!): [Palette]
+    getBestPalettes(limit: Int!, offset: Int!): [Palette]
+    getPicksPalettes(limit: Int!, offset: Int!): [Palette]
     getSavedPalettes: [Palette]
   }
 
@@ -31,6 +31,8 @@ const typeDefs = gql`
     createPalette(input: CreatePalette): Boolean!
     removePalette(id: ID!): Boolean!
     savePalette(id: ID!): Boolean!
+    incrementViews(id: ID!): Boolean!
+    incrementSaves(id: ID!): Boolean!
   }
 `;
 
