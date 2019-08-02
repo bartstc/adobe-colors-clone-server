@@ -11,6 +11,5 @@ export const getUserPalettes: Resolver = async (_, __, { userId }) => {
     .where('ownerid = :ownerid', { ownerid: userId })
     .getMany();
 
-  console.log(palettes);
   return palettes;
 };

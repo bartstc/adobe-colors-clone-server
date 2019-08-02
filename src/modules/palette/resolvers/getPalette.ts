@@ -4,13 +4,7 @@ import { PaletteNotFoundException } from '../../../exceptions/PaletteNotFoundExc
 
 export const getPalette: Resolver = async (_, { id }) => {
   try {
-    const palette = await Palette.findOne({ where: { id } });
-
-    if (!palette) {
-      throw new PaletteNotFoundException(id);
-    }
-
-    return palette;
+    return await Palette.findOne({ where: { id } });
   } catch (err) {
     throw new PaletteNotFoundException(id);
   }

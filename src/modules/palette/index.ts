@@ -24,11 +24,13 @@ const typeDefs = gql`
     getPalette(id: ID!): Palette!
     getUserPalettes: [Palette]
     getAllPalettes: [Palette]
+    getSavedPalettes: [Palette]
   }
 
   extend type Mutation {
     createPalette(input: CreatePalette): Boolean!
     removePalette(id: ID!): Boolean!
+    savePalette(id: ID!): Boolean!
   }
 `;
 

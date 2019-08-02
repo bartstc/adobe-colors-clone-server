@@ -54,7 +54,7 @@ export const signup: Resolver = async (_, args: SignUpDTO) => {
     throw new ValidationException(400, 'signup process faild', alreadyExists);
   }
 
-  const user = User.create({ username, email, password });
+  const user = User.create({ username, email, password, savedPalettes: [] });
   await user.save();
 
   return { id: user.id, username: user.username };

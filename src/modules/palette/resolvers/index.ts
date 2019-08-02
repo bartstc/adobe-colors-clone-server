@@ -4,15 +4,19 @@ import { removePalette } from './removePalette';
 import { getPalette } from './getPalette';
 import { getUserPalettes } from './getUserPalettes';
 import { getAllPalettes } from './getAllPalettes';
+import { getSavedPalettes } from './getSavedPalettes';
+import { savePalette } from './savePalette';
 
 export const resolvers: ResolverMap = {
   Mutation: {
     createPalette,
-    removePalette
+    removePalette,
+    savePalette
   },
   Query: {
     getPalette,
     getUserPalettes,
-    getAllPalettes
+    getAllPalettes,
+    getSavedPalettes
   }
 };

@@ -26,6 +26,9 @@ export class User extends BaseEntity {
   @OneToMany(() => Palette, palette => palette.user)
   palettes: Palette[];
 
+  @Column('text', { array: true })
+  savedPalettes: string[];
+
   @BeforeInsert()
   async hashPassword() {
     this.password = await bcrypt.hash(this.password, 10);
