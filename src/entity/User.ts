@@ -3,9 +3,11 @@ import {
   Column,
   PrimaryGeneratedColumn,
   BaseEntity,
-  BeforeInsert
+  BeforeInsert,
+  OneToMany
 } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
+import { Palette } from './Palette';
 
 @Entity('users')
 export class User extends BaseEntity {
@@ -20,6 +22,9 @@ export class User extends BaseEntity {
 
   @Column('text')
   password: string;
+
+  @OneToMany(() => Palette, palette => palette.user)
+  palettes: Palette[];
 
   @BeforeInsert()
   async hashPassword() {

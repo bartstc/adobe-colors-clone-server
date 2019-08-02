@@ -12,3 +12,11 @@ export interface ResolverMap {
     [key: string]: Resolver;
   };
 }
+
+export type GraphQLMiddlewareFunc = (
+  resolver: Resolver,
+  parent: any,
+  args: any,
+  context: Context,
+  info: any
+) => any;

@@ -1,4 +1,5 @@
 import { gql, makeExecutableSchema } from 'apollo-server-express';
+import * as deepmerge from 'deepmerge';
 import { Module } from '../types/module.types';
 
 const globalTypeDefs = gql`
@@ -11,9 +12,7 @@ export const makeExecutableSchemaFromModules = (modules: Module[]) => {
 
   modules.forEach(module => {
     typeDefs = [...typeDefs, ...module.typeDefs];
-    if (module.resolvers) {
-      resolvers = { ...resolvers, ...module.resolvers };
-    }
+    resolvers = deepmerge(resolvers, module.resolvers);
   });
 
   return makeExecutableSchema({ typeDefs, resolvers });

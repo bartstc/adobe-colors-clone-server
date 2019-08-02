@@ -10,6 +10,7 @@ const typeDefs = gql`
 
   type SignInData {
     id: String!
+    username: String!
     token: String!
   }
 

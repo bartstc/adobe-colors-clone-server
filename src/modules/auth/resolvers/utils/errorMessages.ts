@@ -1,5 +1,5 @@
 export const usernameNotLongEnough = 'username must be at least 5 characters';
-export const duplicateEmail = 'already taken';
+export const duplicateEmailOrUsername = 'email or username already taken';
 export const emailNotLongEnough = 'email must be at least 3 characters';
 export const invalidEmail = 'invalid email';
 export const passwordNotLongEnough = 'password must be at least 6 characters';

@@ -1,8 +1,7 @@
 import { makeExecutableSchemaFromModules } from '../utils/makeExecutableSchema';
-import { test } from './test';
 import { auth } from './auth';
-// import { shared } from './shared';
+import { palette } from './palette';
 
-const modules = [test, auth];
+const modules = [auth, palette];
 
 export const schema = makeExecutableSchemaFromModules(modules);

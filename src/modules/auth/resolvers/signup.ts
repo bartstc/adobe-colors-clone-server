@@ -5,8 +5,8 @@ import {
   invalidEmail,
   passwordNotLongEnough,
   usernameNotLongEnough,
-  duplicateEmail
-} from './errorMessages';
+  duplicateEmailOrUsername
+} from './utils/errorMessages';
 import { SignUpDTO } from './dto/signup';
 import { Resolver } from '../../../types/resolver.types';
 import { formatError } from '../../../utils/formatError';
@@ -32,7 +32,7 @@ const signupSchema = yup.object().shape({
 const alreadyExists = [
   {
     path: 'email',
-    message: duplicateEmail
+    message: duplicateEmailOrUsername
   }
 ];
 
@@ -41,17 +41,16 @@ export const signup: Resolver = async (_, args: SignUpDTO) => {
     await signupSchema.validate(args, { abortEarly: false });
   } catch (err) {
     const errors = formatError(err);
-    throw new ValidationException(400, 'signup process faild', errors);
+    throw new ValidationException(400, 'signup process failed', errors);
   }
 
   const { email, username, password } = args;
 
-  const userAlreadyExists = await User.findOne({
-    where: { email },
-    select: ['id']
-  });
+  const userAlreadyExists = await User.createQueryBuilder()
+    .where('username = :username OR email = :email', { username, email })
+    .getMany();
 
-  if (userAlreadyExists) {
+  if (userAlreadyExists.length !== 0) {
     throw new ValidationException(400, 'signup process faild', alreadyExists);
   }
 

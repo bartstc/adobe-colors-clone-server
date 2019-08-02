@@ -4,7 +4,11 @@ import * as jwt from 'jsonwebtoken';
 
 import { Resolver } from '../../../types/resolver.types';
 import { SignInDTO } from './dto/signin';
-import { emailEmpty, passwordEmpty, invalidCredentials } from './errorMessages';
+import {
+  emailEmpty,
+  passwordEmpty,
+  invalidCredentials
+} from './utils/errorMessages';
 import { formatError } from '../../../utils/formatError';
 import { User } from '../../../entity/User';
 import { DataStoredInToken, TokenData } from '../../../types/auth.types';
@@ -24,14 +28,13 @@ const invalidCreds = [
 ];
 
 export const signin: Resolver = async (_, args: SignInDTO) => {
+  console.log('works');
   try {
     await signinSchema.validate(args, { abortEarly: false });
   } catch (err) {
     const errors = formatError(err);
     throw new ValidationException(400, 'signin process faild', errors);
   }
-
-  console.log('works');
 
   const { email, password } = args;
 
@@ -51,7 +54,7 @@ export const signin: Resolver = async (_, args: SignInDTO) => {
   const { token } = signToken(jwtPayload);
   await setToken(token, id);
 
-  return { id, token };
+  return { id, username, token };
 };
 
 const signToken = (data: DataStoredInToken): TokenData => {

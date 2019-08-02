@@ -1,19 +1,20 @@
 import { Resolver } from '../../../types/resolver.types';
-import { AuthMiddleware } from '../../../middlewares/auth.middleware';
 import { User } from '../../../entity/User';
 import { HttpException } from '../../../exceptions/HttpException';
+import { UnauthorizedException } from '../../../exceptions/UnauthorizedException';
 
-export const currentUser: Resolver = async (_, __, { req, redis }) => {
-  await AuthMiddleware(req);
+export const currentUser: Resolver = async (_, __, { userId }) => {
+  if (!userId) {
+    throw new UnauthorizedException();
+  }
 
-  const id = await redis.get(req.headers.authorization as string);
   const user = await User.findOne({
-    where: { id },
-    select: ['username']
+    where: { id: userId },
+    select: ['username', 'id']
   });
 
   if (user) {
-    return { id, username: user.username };
+    return { id: user.id, username: user.username };
   } else {
     throw new HttpException(500, 'something goes wrong');
   }
