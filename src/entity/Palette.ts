@@ -29,6 +29,9 @@ export class Palette extends BaseEntity {
   @Column('text', { array: true })
   colors: string[];
 
+  @Column('text')
+  tags: string;
+
   @Column('uuid')
   ownerid: string;
 
