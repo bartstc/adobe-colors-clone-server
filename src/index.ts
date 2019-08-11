@@ -5,11 +5,16 @@ import { createTypeormConnection } from './utils/createTypeormConnection';
 import { server } from './server';
 import { app } from './app';
 
+const corsOptions = {
+  credentials: true,
+  origin: process.env.FRONTEND_HOST as string
+};
+
 const startServer = async () => {
   const typeormConnection = await createTypeormConnection();
   await typeormConnection.runMigrations();
 
-  server.applyMiddleware({ app });
+  server.applyMiddleware({ app, path: '/graphql', cors: corsOptions });
 
   app.listen({
     port: process.env.PORT || 4000

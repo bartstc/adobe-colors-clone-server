@@ -31,6 +31,10 @@ const signupSchema = yup.object().shape({
 
 const alreadyExists = [
   {
+    path: 'username',
+    message: duplicateEmailOrUsername
+  },
+  {
     path: 'email',
     message: duplicateEmailOrUsername
   }
@@ -41,7 +45,7 @@ export const signup: Resolver = async (_, args: SignUpDTO) => {
     await signupSchema.validate(args, { abortEarly: false });
   } catch (err) {
     const errors = formatError(err);
-    throw new ValidationException(400, 'signup process failed', errors);
+    throw new ValidationException(400, 'signup proccess failed', errors);
   }
 
   const { email, username, password } = args;

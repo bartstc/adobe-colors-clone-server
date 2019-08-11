@@ -24,11 +24,14 @@ const invalidCreds = [
   {
     path: 'email',
     message: invalidCredentials
+  },
+  {
+    path: 'password',
+    message: invalidCredentials
   }
 ];
 
 export const signin: Resolver = async (_, args: SignInDTO) => {
-  console.log('works');
   try {
     await signinSchema.validate(args, { abortEarly: false });
   } catch (err) {
