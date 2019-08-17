@@ -6,7 +6,7 @@ const typeDefs = gql`
   input CreatePalette {
     name: String!
     colors: [String!]!
-    tags: String!
+    tags: String
   }
 
   type Palette {
@@ -27,13 +27,14 @@ const typeDefs = gql`
     getBestPalettes(limit: Int!, offset: Int!): [Palette!]
     getPicksPalettes(limit: Int!, offset: Int!): [Palette!]
     getSavedPalettes: [Palette]
-    searchPalettes(query: String!): [Palette!]
+    searchPalettes(query: String!, limit: Int!, offset: Int!): [Palette!]
   }
 
   extend type Mutation {
     createPalette(input: CreatePalette): Boolean!
     removePalette(id: ID!): Boolean!
     savePalette(id: ID!): Boolean!
+    removeSavedPalette(id: ID!): Boolean!
     incrementViews(id: ID!): Boolean!
     incrementSaves(id: ID!): Boolean!
   }

@@ -19,7 +19,7 @@ const paletteSchema = yup.object().shape({
     .required()
     .min(5, toFewColors)
     .max(5),
-  tags: yup.string().required()
+  tags: yup.string()
 });
 
 export const createPalette: Resolver = async (

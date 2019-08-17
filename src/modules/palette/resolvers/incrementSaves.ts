@@ -11,7 +11,6 @@ export const incrementSaves: Resolver = async (_, { id }) => {
     }
 
     palette.saves++;
-    console.log(palette);
     await Palette.save(palette);
 
     return true;

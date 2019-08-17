@@ -19,6 +19,10 @@ export const getSavedPalettes: Resolver = async (_, __, { userId }) => {
       throw new UnauthorizedException();
     }
 
+    if (user.savedPalettes.length === 0) {
+      return [];
+    }
+
     return await Palette.find({
       where: { id: In(user.savedPalettes) }
     });

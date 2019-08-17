@@ -11,6 +11,7 @@ import { incrementSaves } from './incrementSaves';
 import { getBestPalettes } from './getBestPalettes';
 import { getPicksPalettes } from './getPicksPalettes';
 import { searchPalettes } from './searchPalettes';
+import { removeSavedPalette } from './removeSavedPalette';
 
 export const resolvers: ResolverMap = {
   Mutation: {
@@ -18,7 +19,8 @@ export const resolvers: ResolverMap = {
     removePalette,
     savePalette,
     incrementViews,
-    incrementSaves
+    incrementSaves,
+    removeSavedPalette
   },
   Query: {
     getPalette,

@@ -11,7 +11,6 @@ export const incrementViews: Resolver = async (_, { id }) => {
     }
 
     palette.views++;
-    console.log(palette);
     await Palette.save(palette);
 
     return true;
