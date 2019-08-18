@@ -1,6 +1,7 @@
 import * as yup from 'yup';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
+import { Redis } from 'ioredis';
 
 import { Resolver } from '../../../types/resolver.types';
 import { SignInDTO } from './dto/signin';
@@ -12,7 +13,6 @@ import {
 import { formatError } from '../../../utils/formatError';
 import { User } from '../../../entity/User';
 import { DataStoredInToken, TokenData } from '../../../types/auth.types';
-import { redis } from '../../../redis';
 import { ValidationException } from '../../../exceptions/ValidationException';
 
 const signinSchema = yup.object().shape({
@@ -31,7 +31,7 @@ const invalidCreds = [
   }
 ];
 
-export const signin: Resolver = async (_, args: SignInDTO) => {
+export const signin: Resolver = async (_, args: SignInDTO, { redis }) => {
   try {
     await signinSchema.validate(args, { abortEarly: false });
   } catch (err) {
@@ -55,7 +55,7 @@ export const signin: Resolver = async (_, args: SignInDTO) => {
   const jwtPayload = { id, username };
 
   const { token } = signToken(jwtPayload);
-  await setToken(token, id);
+  await setToken(token, id, redis);
 
   return { id, username, token };
 };
@@ -68,7 +68,7 @@ const signToken = (data: DataStoredInToken): TokenData => {
   return { token };
 };
 
-const setToken = async (key: any, value: any) => {
+const setToken = async (key: any, value: any, redis: Redis) => {
   const expiresIn = 60 * 60 * 24;
 
   if (process.env.NODE_ENV === 'production') {

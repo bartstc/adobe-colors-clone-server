@@ -19,6 +19,6 @@ export const server = new ApolloServer({
     const { authorization } = req.headers;
     const userId = await getUserId(authorization);
 
-    return { userId, redis };
+    return { userId, redis, req };
   }
 });

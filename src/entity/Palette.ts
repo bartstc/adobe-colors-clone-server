@@ -38,7 +38,10 @@ export class Palette extends BaseEntity {
   @Column('varchar', { length: 255 })
   ownerusername: string;
 
-  @ManyToOne(() => User, user => user.palettes)
+  @ManyToOne(() => User, user => user.palettes, {
+    cascade: true,
+    onDelete: 'CASCADE'
+  }) // cascade means that it delete also all references to related table, when we remove user it also remove all related palettes
   @JoinColumn({ name: 'ownerid' })
   user: User;
 }
