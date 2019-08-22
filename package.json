@@ -1,14 +1,17 @@
 {
   "name": "server",
   "version": "0.0.1",
-  "description": "Awesome project developed with TypeORM.",
+  "description": "Awesome project developed with TypeORM, postgreSQL, React, GraphQL and TypeScript.",
+  "engines": {
+    "node": "10.15.3"
+  },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.0",
     "@types/helmet": "0.0.43",
     "@types/ioredis": "^4.0.13",
     "@types/jsonwebtoken": "^8.3.2",
-    "@types/node": "^8.0.29",
+    "@types/node": "^8.10.51",
     "@types/sparkpost": "^2.1.4",
     "@types/yup": "^0.26.22",
     "nodemon": "^1.19.1",
@@ -36,6 +39,9 @@
     "yup": "^0.27.0"
   },
   "scripts": {
-    "start": "NODE_ENV=development nodemon --exec ts-node src/index.ts"
+    "start": "node build/server.js",
+    "start:dev": "NODE_ENV=development nodemon --exec ts-node src/index.ts",
+    "build": "rimraf build && tsc",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   }
 }

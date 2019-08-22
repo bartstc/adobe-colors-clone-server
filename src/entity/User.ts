@@ -12,22 +12,22 @@ import { Palette } from './Palette';
 @Entity('users')
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column('varchar', { length: 255 })
-  username: string;
+  username!: string;
 
   @Column('varchar', { length: 255 })
-  email: string;
+  email!: string;
 
   @Column('text')
-  password: string;
+  password!: string;
 
   @OneToMany(() => Palette, palette => palette.user)
-  palettes: Palette[];
+  palettes!: Palette[];
 
   @Column('text', { array: true })
-  savedPalettes: string[];
+  savedPalettes!: string[];
 
   @BeforeInsert()
   async hashPassword() {
