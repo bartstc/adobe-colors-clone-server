@@ -25,7 +25,7 @@ Full stack application inspired by [Adobe Colors App](https://color.adobe.com/pl
 
 ## Preview
 
-Coming soon!
+[Adobe Colors Clone](https://react-adobe-color-clone.herokuapp.com/)
 
 ## License
 
